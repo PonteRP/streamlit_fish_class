@@ -53,14 +53,54 @@ def main():
 
                 st.write('Video processing complete!')
 
-            st.markdown(result.headers.get('X-fishes'))
-            #st.write(f'results : {result.content}')
-             # Display the processed video in the main part of the page
-            #stframe.video(result.content)
+    fish_str = result.headers.get('X-fishes')
 
-            st.video(result.content)
 
-            #content = result.content
+            #using strip() and split()  methods
+            #{'Classes': 'Count', 'Bleak': '3', 'Eel': '0', 'Mullet': '85', 'Other': '22', 'Sunfish': '0'}
+
+    fish_dict = dict((a.strip(), b.strip())
+                    for a, b in (element.split(':')
+                                for element in fish_str.split(', ')))
+    #st.markdown(fish_dict.items())
+
+
+    ## Display the results of the fish count in a table
+    df = pd.DataFrame(list(fish_dict.items()), columns=['Fish Type', 'Count'])
+    df['Fish Type'] = df['Fish Type'].str.replace("'", "")
+    df['Count'] = df['Count'].str.replace("'", "")
+    df['Count'] = df['Count'].str.replace("}", "")
+    df = df.iloc[1:]
+    df['Count'] = df['Count'].astype(int)
+
+    # Display the table
+    st.table(df)
+
+
+    #hist_values = get_histo(df)
+
+
+    # st.bar_chart(data=df, use_container_width=True)
+    color_palette = ['#1b4965', '#2c728e', '#3f9cb3', '#80ced7', '#b8d9db']
+
+
+    fig, ax = plt.subplots(facecolor='black')
+    ax.barh(df['Fish Type'], df['Count'], height=0.5, color=color_palette)
+    ax.set_title('Fish Count by Type', fontsize=16, color='white')
+    ax.set_xlabel('Fish Type', fontsize=12, color='white')
+    ax.set_ylabel('Count', fontsize=12, color='white')
+    ax.tick_params(axis='both', labelsize=10, colors='white')
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
+    ax.spines['bottom'].set_color('white')
+    ax.spines['left'].set_color('white')
+    st.pyplot(fig)
+
+
+
+    st.video(result.content)
+
+    #content = result.content
 
 
 

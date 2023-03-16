@@ -1,22 +1,30 @@
-# Imports
 import streamlit as st
 import tempfile
-#import cv2
-#from pathlib import Path
+import cv2
+import argparse
+import numpy as np
+import time
+import argparse
+import time
+from pathlib import Path
+import pandas as pd
 import requests
-
+from matplotlib import pyplot as plt
 
 def main():
 
     # Write a page title
     st.title('A.I. for fish monitoring! 🐟')
 
+
+
+
     # Subheader
     st.subheader('A.I. tool to evaluate fish populations crossing dams')
     # Text
     st.text('The tool searches for the following species: Bleek, Eel, Mullet, Sunfish, Others')
     # Using st.write
-    #st.write('You can upload a video file in .mp4 or .mov format to a max size of 200MB and the tool will process it and output both a csv file with the species count as well as video with the detected species. The species count is merely a baseline estimation that takes as a proxy the max number of individuals in a single frame for a specific time frame')
+    st.write('You can upload a video file in .mp4 or .mov format to a max size of 200MB and the tool will process it and output both a csv file with the species count as well as video with the detected species. The species count is merely a baseline estimation that takes as a proxy the max number of individuals in a single frame for a specific time frame')
 
     st.sidebar.title('Settings')
     st.sidebar.markdown('---')
@@ -53,54 +61,61 @@ def main():
 
                 st.write('Video processing complete!')
 
-    fish_str = result.headers.get('X-fishes')
+            fish_str = result.headers.get('X-fishes')
 
 
             #using strip() and split()  methods
             #{'Classes': 'Count', 'Bleak': '3', 'Eel': '0', 'Mullet': '85', 'Other': '22', 'Sunfish': '0'}
 
-    fish_dict = dict((a.strip(), b.strip())
-                    for a, b in (element.split(':')
-                                for element in fish_str.split(', ')))
-    #st.markdown(fish_dict.items())
+            fish_dict = dict((a.strip(), b.strip())
+                            for a, b in (element.split(':')
+                                        for element in fish_str.split(', ')))
+            #st.markdown(fish_dict.items())
 
 
-    ## Display the results of the fish count in a table
-    df = pd.DataFrame(list(fish_dict.items()), columns=['Fish Type', 'Count'])
-    df['Fish Type'] = df['Fish Type'].str.replace("'", "")
-    df['Count'] = df['Count'].str.replace("'", "")
-    df['Count'] = df['Count'].str.replace("}", "")
-    df = df.iloc[1:]
-    df['Count'] = df['Count'].astype(int)
+            ## Display the results of the fish count in a table
+            df = pd.DataFrame(list(fish_dict.items()), columns=['Fish Type', 'Count'])
+            df['Fish Type'] = df['Fish Type'].str.replace("'", "")
+            df['Count'] = df['Count'].str.replace("'", "")
+            df['Count'] = df['Count'].str.replace("}", "")
+            df = df.iloc[1:]
+            df['Count'] = df['Count'].astype(int)
 
-    # Display the table
-    st.table(df)
-
-
-    #hist_values = get_histo(df)
+            # Display the table
+            st.table(df)
 
 
-    # st.bar_chart(data=df, use_container_width=True)
-    color_palette = ['#1b4965', '#2c728e', '#3f9cb3', '#80ced7', '#b8d9db']
+            #hist_values = get_histo(df)
 
 
-    fig, ax = plt.subplots(facecolor='black')
-    ax.barh(df['Fish Type'], df['Count'], height=0.5, color=color_palette)
-    ax.set_title('Fish Count by Type', fontsize=16, color='white')
-    ax.set_xlabel('Fish Type', fontsize=12, color='white')
-    ax.set_ylabel('Count', fontsize=12, color='white')
-    ax.tick_params(axis='both', labelsize=10, colors='white')
-    ax.spines['right'].set_visible(False)
-    ax.spines['top'].set_visible(False)
-    ax.spines['bottom'].set_color('white')
-    ax.spines['left'].set_color('white')
-    st.pyplot(fig)
+           # st.bar_chart(data=df, use_container_width=True)
+            color_palette = ['#1b4965', '#2c728e', '#3f9cb3', '#80ced7', '#b8d9db']
 
 
+            fig, ax = plt.subplots(facecolor='black')
+            ax.barh(df['Fish Type'], df['Count'], height=0.5, color=color_palette)
+            ax.set_title('Fish Count by Type', fontsize=16, color='white')
+            ax.set_xlabel('Fish Type', fontsize=12, color='white')
+            ax.set_ylabel('Count', fontsize=12, color='white')
+            ax.tick_params(axis='both', labelsize=10, colors='white')
+            ax.spines['right'].set_visible(False)
+            ax.spines['top'].set_visible(False)
+            ax.spines['bottom'].set_color('white')
+            ax.spines['left'].set_color('white')
+            st.pyplot(fig)
 
-    st.video(result.content)
 
-    #content = result.content
+            #st.bar_chart(fish_dict.items())
+
+
+            #st.markdown('Bleak :'+ result.headers.get('X-fishes').get('Bleak'))
+            #st.write(f'results : {result.content}')
+             # Display the processed video in the main part of the page
+            #stframe.video(result.content)
+
+            st.video(result.content)
+
+            #content = result.content
 
 
 
@@ -121,7 +136,5 @@ def main():
 
 
 if __name__ == '__main__':
-    try:
-        main()
-    except:
-        SystemExit()
+
+    main()

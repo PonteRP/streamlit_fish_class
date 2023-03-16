@@ -81,7 +81,7 @@ def main():
             color_palette = ['#1b4965', '#2c728e', '#3f9cb3', '#80ced7', '#b8d9db']
 
             fig, ax = plt.subplots(facecolor='black')
-            ax.bar(df['Fish Type'], df['Count'], color=color_palette)
+            ax.barh(df['Fish Type'], df['Count'], color=color_palette)
             ax.set_title('Fish Count by Type', fontsize=16, color='white')
             ax.set_xlabel('Fish Type', fontsize=12, color='white')
             ax.set_ylabel('Count', fontsize=12, color='white')

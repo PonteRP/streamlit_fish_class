@@ -1,7 +1,7 @@
 # Imports
 import streamlit as st
 import tempfile
-import cv2
+#import cv2
 #from pathlib import Path
 import requests
 

@@ -50,8 +50,8 @@ def main():
             with st.empty():
                 st.write('Processing video...')
                 files = {'file' : video_file_buffer}
-                result = requests.post('https://fishing-nbwxp2xc2a-ew.a.run.app/predict', files=files, headers={'confidence': str(confidence)}, stream=True)
-                #result = requests.post('http://127.0.0.1:8000/predict', files=files, headers={'confidence': str(confidence)}, stream=True)
+                #result = requests.post('https://fishing-nbwxp2xc2a-ew.a.run.app/predict', files=files, headers={'confidence': str(confidence)}, stream=True)
+                result = requests.post('http://127.0.0.1:8000/predict', files=files, headers={'confidence': str(confidence)}, stream=True)
 
                 st.write('Video processing complete!')
 
@@ -81,7 +81,7 @@ def main():
             color_palette = ['#1b4965', '#2c728e', '#3f9cb3', '#80ced7', '#b8d9db']
 
             fig, ax = plt.subplots(facecolor='black')
-            ax.bar(df['Fish Type'], df['Count'], height=0.5, color=color_palette)
+            ax.bar(df['Fish Type'], df['Count'], color=color_palette)
             ax.set_title('Fish Count by Type', fontsize=16, color='white')
             ax.set_xlabel('Fish Type', fontsize=12, color='white')
             ax.set_ylabel('Count', fontsize=12, color='white')

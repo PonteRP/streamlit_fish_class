@@ -1,10 +1,7 @@
 import streamlit as st
 import tempfile
-import cv2
 import argparse
 import numpy as np
-import time
-import argparse
 import time
 from pathlib import Path
 import pandas as pd

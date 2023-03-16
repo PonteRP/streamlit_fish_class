@@ -44,12 +44,14 @@ def main():
         uploaded = True
         st.sidebar.video(video_file_buffer)
 
+
+
         if st.button("Submit", key=1):
             with st.empty():
                 st.write('Processing video...')
                 files = {'file' : video_file_buffer}
                 result = requests.post('https://fishing-nbwxp2xc2a-ew.a.run.app/predict', files=files, headers={'confidence': str(confidence)}, stream=True)
-
+                #result = requests.post('http://127.0.0.1:8000/predict', files=files, headers={'confidence': str(confidence)}, stream=True)
 
                 st.write('Video processing complete!')
 
@@ -63,6 +65,7 @@ def main():
                             for element in fish_str.split(', ')))
             #st.markdown(fish_dict.items())
 
+            st.video(result.content)
 
             ## Display the results of the fish count in a table
             df = pd.DataFrame(list(fish_dict.items()), columns=['Fish Type', 'Count'])
@@ -75,12 +78,10 @@ def main():
             # Display the table
             st.table(df)
 
-            st.video(result.content)
-
             color_palette = ['#1b4965', '#2c728e', '#3f9cb3', '#80ced7', '#b8d9db']
 
             fig, ax = plt.subplots(facecolor='black')
-            ax.barh(df['Fish Type'], df['Count'], height=0.5, color=color_palette)
+            ax.bar(df['Fish Type'], df['Count'], height=0.5, color=color_palette)
             ax.set_title('Fish Count by Type', fontsize=16, color='white')
             ax.set_xlabel('Fish Type', fontsize=12, color='white')
             ax.set_ylabel('Count', fontsize=12, color='white')
@@ -112,7 +113,9 @@ def main():
 
 
 if __name__ == '__main__':
-    try:
-        main()
-    except:
-        SystemExit()
+    main()
+
+    #try:
+    #    main()
+    #except:
+    #    SystemExit()

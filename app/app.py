@@ -1,14 +1,8 @@
 # Imports
 import streamlit as st
-import tempfile
-import cv2
-import argparse
-import numpy as np
-import time
-import argparse
-import time
-from pathlib import Path
-import pandas as pd
+#import tempfile
+#import cv2
+#from pathlib import Path
 import requests
 
 
@@ -74,14 +68,14 @@ def main():
 
 
     #Display Demo video
-    DEMO_VIDEO = 'tool_overview.mp4'  # name of demo video
-    tfflie = tempfile.NamedTemporaryFile(suffix='.mp4', delete=False)
-    vid = cv2.VideoCapture(DEMO_VIDEO)
-    tfflie.name = DEMO_VIDEO
-    dem_vid = open(tfflie.name, 'rb')
-    demo_bytes = dem_vid.read()
-    st.sidebar.text("Tool Overview")
-    st.sidebar.video(demo_bytes)
+   # DEMO_VIDEO = 'tool_overview.mp4'  # name of demo video
+    #tfflie = tempfile.NamedTemporaryFile(suffix='.mp4', delete=False)
+    #vid = cv2.VideoCapture(DEMO_VIDEO)
+    #tfflie.name = DEMO_VIDEO
+    #dem_vid = open(tfflie.name, 'rb')
+    #demo_bytes = dem_vid.read()
+    #st.sidebar.text("Tool Overview")
+    #st.sidebar.video(demo_bytes)
 
 
     stframe = st.empty()

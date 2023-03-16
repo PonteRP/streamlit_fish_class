@@ -1,7 +1,7 @@
 # Imports
 import streamlit as st
 import tempfile
-#import cv2
+import cv2
 #from pathlib import Path
 import requests
 import pandas as pd
@@ -98,7 +98,7 @@ def main():
 
 
     #Display Demo video
-    DEMO_VIDEO = 'tool_overview.mp4'  # name of demo video
+    DEMO_VIDEO = 'raw_data/tool_overview.mp4'  # name of demo video
     tfflie = tempfile.NamedTemporaryFile(suffix='.mp4', delete=False)
     vid = cv2.VideoCapture(DEMO_VIDEO)
     tfflie.name = DEMO_VIDEO

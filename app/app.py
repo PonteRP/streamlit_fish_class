@@ -5,7 +5,7 @@ import tempfile
 #from pathlib import Path
 import requests
 import pandas as pd
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 
 
 def main():

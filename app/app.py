@@ -5,6 +5,7 @@ import tempfile
 #from pathlib import Path
 import requests
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
 def main():
@@ -77,6 +78,20 @@ def main():
             st.table(df)
 
             st.video(result.content)
+
+            color_palette = ['#1b4965', '#2c728e', '#3f9cb3', '#80ced7', '#b8d9db']
+
+            fig, ax = plt.subplots(facecolor='black')
+            ax.barh(df['Fish Type'], df['Count'], height=0.5, color=color_palette)
+            ax.set_title('Fish Count by Type', fontsize=16, color='white')
+            ax.set_xlabel('Fish Type', fontsize=12, color='white')
+            ax.set_ylabel('Count', fontsize=12, color='white')
+            ax.tick_params(axis='both', labelsize=10, colors='white')
+            ax.spines['right'].set_visible(False)
+            ax.spines['top'].set_visible(False)
+            ax.spines['bottom'].set_color('white')
+            ax.spines['left'].set_color('white')
+            st.pyplot(fig)
 
             #content = result.content
 

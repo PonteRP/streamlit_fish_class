@@ -19,7 +19,7 @@ def main():
     # Text
     st.text('The tool searches for the following species: Bleek, Eel, Mullet, Sunfish, Others')
     # Using st.write
-    st.write('You can upload a video file in .mp4 or .mov format to a max size of 200MB and the tool will process it and output both a csv file with the species count as well as video with the detected species. The species count is merely a baseline estimation that takes as a proxy the max number of individuals in a single frame for a specific time frame')
+    #st.write('You can upload a video file in .mp4 or .mov format to a max size of 200MB and the tool will process it and output both a csv file with the species count as well as video with the detected species. The species count is merely a baseline estimation that takes as a proxy the max number of individuals in a single frame for a specific time frame')
 
     st.sidebar.title('Settings')
     st.sidebar.markdown('---')

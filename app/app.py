@@ -11,9 +11,6 @@ def main():
     # Write a page title
     st.title('A.I. for fish monitoring! 🐟')
 
-
-
-
     # Subheader
     st.subheader('A.I. tool to evaluate fish populations crossing dams')
     # Text

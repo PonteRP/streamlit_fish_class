@@ -1,8 +1,6 @@
 # Imports
 import streamlit as st
 import tempfile
-import cv2
-#from pathlib import Path
 import requests
 import pandas as pd
 from matplotlib import pyplot as plt
@@ -100,7 +98,7 @@ def main():
     #Display Demo video
     DEMO_VIDEO = 'raw_data/tool_overview.mp4'  # name of demo video
     tfflie = tempfile.NamedTemporaryFile(suffix='.mp4', delete=False)
-    vid = cv2.VideoCapture(DEMO_VIDEO)
+    #vid = cv2.VideoCapture(DEMO_VIDEO)
     tfflie.name = DEMO_VIDEO
     dem_vid = open(tfflie.name, 'rb')
     demo_bytes = dem_vid.read()

@@ -2,4 +2,3 @@ streamlit
 requests
 matplotlib
 pandas
-opencv-python

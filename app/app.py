@@ -4,6 +4,7 @@ import tempfile
 #import cv2
 #from pathlib import Path
 import requests
+import pandas as pd
 
 
 def main():
@@ -53,10 +54,27 @@ def main():
 
                 st.write('Video processing complete!')
 
-            st.markdown(result.headers.get('X-fishes'))
+            fish_str = result.headers.get('X-fishes')
             #st.write(f'results : {result.content}')
              # Display the processed video in the main part of the page
             #stframe.video(result.content)
+
+            fish_dict = dict((a.strip(), b.strip())
+                for a, b in (element.split(':')
+                            for element in fish_str.split(', ')))
+            #st.markdown(fish_dict.items())
+
+
+            ## Display the results of the fish count in a table
+            df = pd.DataFrame(list(fish_dict.items()), columns=['Fish Type', 'Count'])
+            df['Fish Type'] = df['Fish Type'].str.replace("'", "")
+            df['Count'] = df['Count'].str.replace("'", "")
+            df['Count'] = df['Count'].str.replace("}", "")
+            df = df.iloc[1:]
+            df['Count'] = df['Count'].astype(int)
+
+            # Display the table
+            st.table(df)
 
             st.video(result.content)
 

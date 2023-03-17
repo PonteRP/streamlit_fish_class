@@ -5,6 +5,11 @@ import requests
 import pandas as pd
 from matplotlib import pyplot as plt
 
+@st.cache
+def api(files,confidence):
+    #return requests.post('http://127.0.0.1:8000/predict', files=files, headers={'confidence': str(confidence)}, stream=True)
+    return requests.post('https://fishing-nbwxp2xc2a-ew.a.run.app/predict', files=files, headers={'confidence': str(confidence)}, stream=True)
+
 
 def main():
 
@@ -50,8 +55,9 @@ def main():
             with st.empty():
                 st.write('Processing video...')
                 files = {'file' : video_file_buffer}
-                result = requests.post('https://fishing-nbwxp2xc2a-ew.a.run.app/predict', files=files, headers={'confidence': str(confidence)}, stream=True)
+                #result = requests.post('https://fishing-nbwxp2xc2a-ew.a.run.app/predict', files=files, headers={'confidence': str(confidence)}, stream=True)
                 #result = requests.post('http://127.0.0.1:8000/predict', files=files, headers={'confidence': str(confidence)}, stream=True)
+                result = api(files,confidence)
 
                 st.write('Video processing complete!')
 
